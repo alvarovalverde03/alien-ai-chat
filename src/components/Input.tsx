@@ -50,7 +50,7 @@ export default function SendInput(props: any) {
       />
 
       <button type='submit' className="absolute inset-y-0 right-0 top-0 flex items-top pt-[1.125rem] pr-3 z-40 disabled:opacity-40" 
-              { ...(form.text ? {} : { disabled: true }) }
+        { ...(form.text ? {} : { disabled: true }) }
       >
         <SendArrowIcon />
       </button>
