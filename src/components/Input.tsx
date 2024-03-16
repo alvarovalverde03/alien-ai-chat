@@ -25,18 +25,20 @@ export default function SendInput(props: any) {
 
     if (!form.text) return
 
-    const data = {
-      text: form.text
-    }
-
-    // TODO: Send message/prompt
-    console.log('sending message', data)
+    const res = await fetch('/api/openai', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(form)
+    })
 
     setForm({
       text: ''
     })
 
-    props.onCreate()
+    const data = await res.json();
+    console.log('[TEMP] Chat response: ', data)
   }
 
   return (
