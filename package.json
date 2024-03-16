@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@langchain/openai": "0.0.21",
     "langchain": "0.1.28",
     "next": "13.5.6",
     "react": "18",
