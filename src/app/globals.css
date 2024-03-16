@@ -45,3 +45,9 @@ body {
   background-color: rgb(var(--foreground-rgb), 0.2);
   border-radius: 1.6rem;
 }
+
+@media (max-width: 950px) {
+  *::-webkit-scrollbar {
+    width: 4px;
+  }
+}

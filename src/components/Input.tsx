@@ -1,13 +1,19 @@
 'use client'
 
 import SendArrowIcon from '@/icons/SendArrowIcon';
+import { type Message, Authors } from '@/components/Response';
 import { useState } from 'react';
 
 export type FormData = {
   text: string;
 }
 
-export default function SendInput(props: any) {
+interface Props {
+  messages: Message[];
+  updateMessages: (messages: Message[] | ((prevMessages: Message[]) => Message[])) => void;
+}
+
+export default function SendInput({ messages, updateMessages }: Props ) {
   const [form, setForm] = useState<FormData>({
     text: ''
   })
@@ -25,20 +31,37 @@ export default function SendInput(props: any) {
 
     if (!form.text) return
 
-    const res = await fetch('/api/openai', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(form)
-    })
+    const formCopy = { ...form }
+
+    updateMessages(prevMessages => ([
+      ...prevMessages,
+      {
+        text: formCopy.text,
+        author: Authors.USER
+      }
+    ]))
 
     setForm({
       text: ''
     })
 
+    const res = await fetch('/api/openai', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formCopy)
+    })
+
     const data = await res.json();
-    console.log('[TEMP] Chat response: ', data)
+
+    updateMessages(prevMessages => [
+      ...prevMessages,
+      {
+        text: data.text,
+        author: Authors.LANG_CHAIN
+      }
+    ])
   }
 
   return (
