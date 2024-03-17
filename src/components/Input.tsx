@@ -3,6 +3,7 @@
 import SendArrowIcon from '@/icons/SendArrowIcon';
 import { type Message, Authors } from '@/components/Response';
 import { useState } from 'react';
+import SpinnerIcon from '@/icons/SpinnerIcon';
 
 export type FormData = {
   text: string;
@@ -17,6 +18,7 @@ export default function SendInput({ messages, updateMessages }: Props ) {
   const [form, setForm] = useState<FormData>({
     text: ''
   })
+  const [isSending, setIsSending] = useState(false)
 
   function handleInputOnChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value }  = event.target
@@ -29,7 +31,7 @@ export default function SendInput({ messages, updateMessages }: Props ) {
   async function handleSend(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    if (!form.text) return
+    if (!form.text || isSending) return
 
     const formCopy = { ...form }
 
@@ -45,6 +47,8 @@ export default function SendInput({ messages, updateMessages }: Props ) {
       text: ''
     })
 
+    setIsSending(true)
+
     const res = await fetch('/api/openai', {
       method: 'POST',
       headers: {
@@ -54,6 +58,8 @@ export default function SendInput({ messages, updateMessages }: Props ) {
     })
 
     const data = await res.json();
+
+    setIsSending(false)
 
     updateMessages(prevMessages => [
       ...prevMessages,
@@ -75,9 +81,12 @@ export default function SendInput({ messages, updateMessages }: Props ) {
       />
 
       <button type='submit' className="absolute inset-y-0 right-0 top-0 flex items-top pt-[1.125rem] pr-3 z-40 disabled:opacity-40" 
-        { ...(form.text ? {} : { disabled: true }) }
+        { ...(form.text || isSending ? {} : { disabled: true }) }
       >
-        <SendArrowIcon />
+        {isSending 
+          ? <SpinnerIcon />
+          : <SendArrowIcon />
+        }
       </button>
     </form>
   )
