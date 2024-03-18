@@ -14,8 +14,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className='relative'>
-        <main className='flex min-h-dvh max-h-dvh max-w-[900px] w-full mx-auto overflow-hidden flex-col items-center justify-between px-4 pb-2 lg:pb-6 pt-8 lg:pt-12'>
+      <body>
+        <main className='relative flex min-h-dvh max-h-dvh max-w-[900px] w-full mx-auto overflow-hidden flex-col items-center justify-between px-4 pb-2 lg:pb-6 pt-8 lg:pt-12'>
           <BackgroundBlur />
           {children}
         </main>
