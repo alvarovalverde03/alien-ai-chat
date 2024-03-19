@@ -1,7 +1,8 @@
 'use client'
 
 import SendArrowIcon from '@/icons/SendArrowIcon';
-import { type Message, Authors } from '@/components/Response';
+import type { TMessage } from '@/types/Message';
+import { Authors } from '@/types/constants';
 import { useState } from 'react';
 import SpinnerIcon from '@/icons/SpinnerIcon';
 
@@ -10,8 +11,8 @@ export type FormData = {
 }
 
 interface Props {
-  messages: Message[];
-  updateMessages: (messages: Message[] | ((prevMessages: Message[]) => Message[])) => void;
+  messages: TMessage[];
+  updateMessages: (messages: TMessage[] | ((prevMessages: TMessage[]) => TMessage[])) => void;
 }
 
 export default function SendInput({ messages, updateMessages }: Props ) {

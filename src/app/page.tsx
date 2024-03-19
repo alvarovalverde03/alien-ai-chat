@@ -1,16 +1,16 @@
 'use client'
 
 import Input from '@/components/Input';
-import ResponseList from '@/components/ResponseList';
-import type { Message } from '@/components/Response';
+import ResponseList from '@/components/MessageList';
+import type { TMessage } from '@/types/Message';
 import { useState } from 'react';
 import { LinkButton } from '@/components/Button';
 import ArchiveIcon from '@/icons/ArchiveIcon';
 
 export default function Home() {
-  const [messages, setMessages] = useState<Message[]>([])
+  const [messages, setMessages] = useState<TMessage[]>([])
 
-  const updateMessages = (update: Message[] | ((prevMessages: Message[]) => Message[])) => {
+  const updateMessages = (update: TMessage[] | ((prevMessages: TMessage[]) => TMessage[])) => {
     setMessages(update);
   };
 

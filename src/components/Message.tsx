@@ -1,14 +1,10 @@
-export enum Authors {
-    LANG_CHAIN = 'LangChain',
-    USER = 'You'
-}
 
-export interface Message {
-    author: Authors;
-    text: string;
-}
+import { TMessage } from "@/types/Message"
+import { Authors } from "@/types/constants"
 
-export default function Response({ author, text }: Message) {
+interface Props extends TMessage {}
+
+export default function Message({ author, text }: Props) {
     return (
         <article>
             <div className="flex items-start">
