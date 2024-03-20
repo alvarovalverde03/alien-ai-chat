@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@langchain/openai": "0.0.21",
-    "encoding": "^0.1.13",
+    "chromadb": "1.8.1",
+    "encoding": "0.1.13",
     "langchain": "0.1.28",
     "next": "13.5.6",
     "react": "18",
