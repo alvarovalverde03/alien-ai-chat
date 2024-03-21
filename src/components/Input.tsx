@@ -5,6 +5,7 @@ import type { TMessage } from '@/types/Message';
 import { Authors } from '@/types/constants';
 import { useState } from 'react';
 import SpinnerIcon from '@/icons/SpinnerIcon';
+import { toast } from 'sonner';
 
 export type FormData = {
   text: string;
@@ -59,6 +60,12 @@ export default function SendInput({ messages, updateMessages }: Props ) {
     })
 
     const data = await res.json();
+
+    if (data.error) {
+      toast.error(data.text)
+      setIsSending(false)
+      return
+    }
 
     setIsSending(false)
 

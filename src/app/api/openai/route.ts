@@ -10,21 +10,27 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-    let formData
     try {
-        formData = await req.json()
-    } catch (e) {
-        console.error('No JSON body in the request. \n', e);
-        return Response.json({ error: 'No JSON body in the request' }, { status: 400 })
+        let formData
+        try {
+            formData = await req.json()
+        } catch (e) {
+            throw new Error('Invalid JSON body')
+        }
+        
+        const text = formData.text;
+        if (!text) {
+            throw new Error('Prompt is required')
+        }
+
+        const res = await sendPrompt(text as string)
+        if (res.error) {
+            throw new Error(res.text)
+        }
+
+        return Response.json(res, { status: 200 })
+    } catch (e: any) {
+        console.error('Error processing request. \n', e);
+        return Response.json({ text: e.message, error: true }, { status: 400 });
     }
-
-    const text = formData.text
-
-    if (!text) {
-        return Response.json({ error: 'Propmt is required' }, { status: 400 })
-    }
-
-    const res = await sendPrompt(text as string)
-
-    return Response.json(res, { status: 200 })
 }
