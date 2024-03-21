@@ -6,6 +6,7 @@ import { Document } from 'langchain/document'
 import { Chroma } from '@langchain/community/vectorstores/chroma'
 import { ConversationalRetrievalQAChain } from 'langchain/chains'
 import { DocumentType } from '@/types/constants'
+import path from 'path'
 
 export interface PromptResponse {
     text: string;
@@ -76,8 +77,9 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
 
 async function loadDirectory(directoryPath: string) {
     try {
-        const loader = new DirectoryLoader(directoryPath, {
-            '.pdf': (path:string) => new PDFLoader(path)
+        const dir = path.join(process.cwd(), directoryPath)
+        const loader = new DirectoryLoader(dir, {
+            '.pdf': (filePath:string) => new PDFLoader(filePath)
         })
 
         return await loader.load()
