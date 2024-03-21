@@ -5,9 +5,11 @@ import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
 import { Document } from 'langchain/document'
 import { Chroma } from '@langchain/community/vectorstores/chroma'
 import { ConversationalRetrievalQAChain } from 'langchain/chains'
+import { DocumentType } from '@/types/constants'
 
 interface PromptResponse {
     text: string;
+    documents?: DocumentType[];
 }
 
 export async function sendPrompt(message: string): Promise<PromptResponse> {
@@ -29,13 +31,22 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
     // 4. Create the chain
     const chain = ConversationalRetrievalQAChain.fromLLM(
         llmOpenAI,
-        vectorStore.asRetriever()
+        vectorStore.asRetriever(),
     )
 
     // 5. Ask it a question
+    chain.returnSourceDocuments = true
     const data = await chain.call({ question: message, chat_history: [] })
     const res = {
-        text: data.text
+        text: data.text,
+        documents: data.sourceDocuments.map((doc: any) => {
+            return {
+                url: doc.metadata.source.split('/public')[1],
+                title: doc.metadata.source.split('/archive')[1].split('.pdf')[0].replace('/', '').replace(/-/g, ' '),
+                type: DocumentType.PDF,
+                id: doc.metadata.source.split('/public')[1]
+            }
+        }),
     }
 
     return res
