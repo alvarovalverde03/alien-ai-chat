@@ -6,7 +6,6 @@ import { Document } from 'langchain/document'
 import { Chroma } from '@langchain/community/vectorstores/chroma'
 import { ConversationalRetrievalQAChain } from 'langchain/chains'
 import { DocumentType } from '@/types/constants'
-import path from 'path'
 
 export interface PromptResponse {
     text: string;
@@ -21,7 +20,8 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
 
     try {
         // 1. Load directory docs
-        const docs = await loadDirectory('public/archive')
+        const directoryPath = process.env.NODE_ENV === 'production' ? 'archive' : 'public/archive';
+        const docs = await loadDirectory(directoryPath)
         if (!docs) {
             throw new Error("Failed to load directory")
         }
@@ -77,8 +77,7 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
 
 async function loadDirectory(directoryPath: string) {
     try {
-        const dir = path.join(process.cwd(), directoryPath)
-        const loader = new DirectoryLoader(dir, {
+        const loader = new DirectoryLoader(directoryPath, {
             '.pdf': (filePath:string) => new PDFLoader(filePath)
         })
 
