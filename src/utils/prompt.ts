@@ -37,6 +37,7 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
     // 5. Ask it a question
     chain.returnSourceDocuments = true
     const data = await chain.call({ question: message, chat_history: [] })
+    
     const res = {
         text: data.text,
         documents: data.sourceDocuments.map((doc: any) => {

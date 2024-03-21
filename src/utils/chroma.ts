@@ -1,7 +1,4 @@
 import { ChromaClient as ChromaClientT } from 'chromadb'
-import { Chroma } from '@langchain/community/vectorstores/chroma'
-import { embbederOpenAI } from './openai'
-import { Document } from 'langchain/document'
 
 const CHROMA_DB_HOST = process.env.CHROMA_DB_HOST
 const CHROMA_DB_USERNAME = process.env.CHROMA_DB_USERNAME
@@ -17,14 +14,3 @@ export const chromaClient = new ChromaClientT({
         }
     }
 })
-
-export async function getChromaVectorStore(chunks: Document<Record<string, any>>[], collectionName: string) {
-    return await Chroma.fromDocuments(
-        chunks,
-        embbederOpenAI,
-        {
-            collectionName,
-            url: CHROMA_DB_HOST
-        },
-    )
-}
