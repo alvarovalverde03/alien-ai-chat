@@ -21,7 +21,7 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
 
     try {
         // 1. Load directory docs
-        const directoryPath = process.env.NODE_ENV === 'development' ? 'public/archive' : 'archive'
+        const directoryPath = path.join(process.cwd(), 'public', 'archive')
         const docs = await loadDirectory(directoryPath)
         if (!docs) {
             throw new Error("Failed to load directory")
@@ -78,8 +78,7 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
 
 async function loadDirectory(directoryPath: string) {
     try {
-        const dir = path.join(process.cwd(), directoryPath)
-        const loader = new DirectoryLoader(dir, {
+        const loader = new DirectoryLoader(directoryPath, {
             '.pdf': (filePath:string) => new PDFLoader(filePath)
         })
 
