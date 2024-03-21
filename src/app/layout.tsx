@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import BackgroundBlur from '@/components/BackgroundBlur'
+import { Toaster } from 'sonner'
 
 export const metadata: Metadata = {
   title: 'NextJS + LangChain',
@@ -16,6 +17,13 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <main className='relative flex min-h-dvh max-h-dvh max-w-[900px] w-full mx-auto overflow-hidden flex-col items-center justify-between px-4 pb-2 lg:pb-6 pt-8 lg:pt-12'>
+          <Toaster 
+            theme='dark'
+            position='top-center'
+            offset={100}
+            visibleToasts={1}
+            richColors={true}
+          />
           <BackgroundBlur />
           {children}
         </main>
