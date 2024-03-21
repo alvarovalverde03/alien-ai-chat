@@ -8,6 +8,8 @@ import { ConversationalRetrievalQAChain } from 'langchain/chains'
 import { DocumentType } from '@/types/constants'
 import path from 'path'
 
+const CHROMA_DB_HOST = process.env.CHROMA_DB_HOST
+
 export interface PromptResponse {
     text: string;
     documents?: DocumentType[];
@@ -36,6 +38,7 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
         // 3. Create the vectorstore
         const vectorStore = await Chroma.fromDocuments(chunks, embbederOpenAI, {
             collectionName: "test",
+            url: CHROMA_DB_HOST,
         })
         if (!vectorStore) {
             throw new Error("Failed to create vectorstore")
