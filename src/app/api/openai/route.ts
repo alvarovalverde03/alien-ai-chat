@@ -1,4 +1,4 @@
-import { sendPrompt } from "@/utils/openai"
+import { sendPrompt } from '@/utils/prompt'
 
 export async function GET() {
     return new Response('OK OpenAI', {
