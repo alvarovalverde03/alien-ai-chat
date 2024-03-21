@@ -20,7 +20,7 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
 
     try {
         // 1. Load directory docs
-        const directoryPath = process.env.NODE_ENV === 'production' ? 'archive' : 'public/archive';
+        const directoryPath = process.env.NODE_ENV === 'production' ? '/archive' : 'public/archive';
         const docs = await loadDirectory(directoryPath)
         if (!docs) {
             throw new Error("Failed to load directory")
