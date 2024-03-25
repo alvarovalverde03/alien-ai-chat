@@ -3,10 +3,11 @@ import { DirectoryLoader } from 'langchain/document_loaders/fs/directory'
 import { PDFLoader } from 'langchain/document_loaders/fs/pdf'
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
 import { Document } from 'langchain/document'
-import { Chroma } from '@langchain/community/vectorstores/chroma'
 import { ConversationalRetrievalQAChain } from 'langchain/chains'
 import { DocumentType } from '@/types/constants'
 import path from 'path'
+
+import { MemoryVectorStore } from 'langchain/vectorstores/memory'
 
 const CHROMA_DB_HOST = process.env.CHROMA_DB_HOST
 
@@ -36,18 +37,16 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
         }
 
         // 3. Create the vectorstore
-        const vectorStore = await Chroma.fromDocuments(chunks, embbederOpenAI, {
-            collectionName: "test",
-            url: CHROMA_DB_HOST,
-        })
+        const vectorStore = await MemoryVectorStore.fromDocuments(chunks, embbederOpenAI, {})
         if (!vectorStore) {
             throw new Error("Failed to create vectorstore")
         }
 
         // 4. Create the chain
+        const retriever = vectorStore.asRetriever(2)
         const chain = ConversationalRetrievalQAChain.fromLLM(
             llmOpenAI,
-            vectorStore.asRetriever(),
+            retriever,
         )
         if (!chain) {
             throw new Error("Failed to create chain")
@@ -59,6 +58,8 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
         if (!data) {
             throw new Error("Failed to get response from chain")
         }
+
+        console.log(data)
         
         const res = {
             text: data.text,
