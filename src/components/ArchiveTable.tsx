@@ -13,7 +13,7 @@ const documents: Document[] = [
         id: 1,
         title: "Description of AlienAI S.L.",
         url: "/archive/AlienAI-SL-Description.pdf",
-        date: "2023-04-01",
+        date: "2023-09-01",
         status: "Approved"
     },
     {
@@ -21,6 +21,62 @@ const documents: Document[] = [
         title: "Economic Results for Q4 of the 2023 for AlienAI S.L.",
         url: "/archive/AlienAI-SL-Economics-results-2023-q4.pdf",
         date: "2024-01-01",
+        status: "Approved"
+    },
+    {
+        id: 3,
+        title: "Interior Design Process of AlienAI S.L.",
+        url: "/archive/AlienAI-SL-Interior Design Process.pdf",
+        date: "2023-09-10",
+        status: "Approved"
+    },
+    {
+        id: 4,
+        title: "Quality Process of AlienAI S.L.",
+        url: "/archive/AlienAI-SL-Quality Process.pdf",
+        date: "2023-11-29",
+        status: "Approved"
+    },
+    {
+        id: 5,
+        title: "Values and Vision of AlienAI S.L.",
+        url: "/archive/AlienAI-SL-Values and Vision.pdf",
+        date: "2023-10-21",
+        status: "Approved"
+    },
+    {
+        id: 6,
+        title: "Company Profile of AlienAI S.L.",
+        url: "/archive/AlienAI-SL-Company Profile.pdf",
+        date: "2023-11-12",
+        status: "Approved"
+    },
+    {
+        id: 7,
+        title: "Client Report: Serene Sanctuary Residence",
+        url: "/archive/AlienAI-SL-Client Report-Serene Sanctuary Residence.pdf",
+        date: "2023-10-01",
+        status: "Approved"
+    },
+    {
+        id: 8,
+        title: "Client Report: Tranquil Wellness Retreat",
+        url: "/archive/AlienAI-SL-Client Report-Tranquil Wellness Retreat.pdf",
+        date: "2023-11-26",
+        status: "Approved"
+    },
+    {
+        id: 9,
+        title: "Client Report: Urban Oasis Café",
+        url: "/archive/AlienAI-SL-Client Report-Urban Oasis Café.pdf",
+        date: "2023-12-27",
+        status: "Approved"
+    },
+    {
+        id: 10,
+        title: "Clients Lists of AlienAI S.L.",
+        url: "/archive/AlienAI-SL-Clients List.pdf",
+        date: "2024-01-09",
         status: "Approved"
     },
 ]
