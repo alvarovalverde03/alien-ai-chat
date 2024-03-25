@@ -51,7 +51,7 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
 
         // 4. Search for related documents
         const embbededMessage = await embbedings.embedQuery(message)
-        const relevantDocs = await collection.similaritySearchVectorWithScore(embbededMessage, 2)
+        const relevantDocs = await collection.similaritySearchVectorWithScore(embbededMessage, 3)
 
         console.log(relevantDocs)
 
@@ -74,8 +74,6 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
             input_documents: relevantDocs,
             chat_history: [],
         })
-
-        console.log(data.sourceDocuments[0])
 
         // 4. Create the chain
         /*
