@@ -53,48 +53,26 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
         const embbededMessage = await embbedings.embedQuery(message)
         const relevantDocs = await collection.similaritySearchVectorWithScore(embbededMessage, 3)
 
-        console.log(relevantDocs)
-
-        // 5. Prompt the model
+        // 5. Create the chain
         const retriever = collection.asRetriever(2)
-
         const chain = ConversationalRetrievalQAChain.fromLLM(
             llm,
             retriever,
         )
-
         if (!chain) {
             throw new Error("Failed to create chain")
         }
 
+        // 6. Get response from chain
         chain.returnSourceDocuments = true
-
         const data = await chain.invoke({
             question: message,
             input_documents: relevantDocs,
             chat_history: [],
         })
-
-        // 4. Create the chain
-        /*
-        const retriever = vectorStore.asRetriever(2)
-        const chain = ConversationalRetrievalQAChain.fromLLM(
-            llm,
-            retriever,
-        )
-        if (!chain) {
-            throw new Error("Failed to create chain")
-        }
-
-        // 5. Ask it a question
-        chain.returnSourceDocuments = true
-        const data = await chain.call({ question: message, chat_history: [] })
         if (!data) {
             throw new Error("Failed to get response from chain")
         }
-
-        console.log(data)
-        */
         
         const res = {
             text: data.text,
@@ -130,8 +108,8 @@ async function loadDirectory(directoryPath: string) {
 
 async function splitDocuments(
     docs: Document<Record<string, any>>[],
-    chunkSize: number = 250,
-    chunkOverlap: number = 50
+    chunkSize: number = 500,
+    chunkOverlap: number = 100
 ) {
     try {
         const splitter = new RecursiveCharacterTextSplitter({
