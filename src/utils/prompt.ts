@@ -52,9 +52,17 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
         // 4. Search for related documents
         const embbededMessage = await embbedings.embedQuery(message)
         const relevantDocs = await collection.similaritySearchVectorWithScore(embbededMessage, 3)
+        const relevantDocsFiltered = relevantDocs.filter((doc: any) => doc[1] < 0.4)
+
+        if (relevantDocsFiltered.length === 0) {
+            // If no relevant documents are found, return a default response
+            return { 
+                text: "Sorry, I can only help you with questions related to AlienAI S.L."
+            }
+        }
 
         // 5. Create the chain
-        const retriever = collection.asRetriever(2)
+        const retriever = collection.asRetriever(3)
         const chain = ConversationalRetrievalQAChain.fromLLM(
             llm,
             retriever,
@@ -67,7 +75,7 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
         chain.returnSourceDocuments = true
         const data = await chain.invoke({
             question: message,
-            input_documents: relevantDocs,
+            input_documents: relevantDocsFiltered,
             chat_history: [],
         })
         if (!data) {
