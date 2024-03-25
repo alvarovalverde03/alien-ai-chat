@@ -1,12 +1,12 @@
-import { llmOpenAI, embbederOpenAI } from '@/utils/openai'
+import { llm, embbedings } from '@/utils/openai'
 import { DirectoryLoader } from 'langchain/document_loaders/fs/directory'
 import { PDFLoader } from 'langchain/document_loaders/fs/pdf'
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
 import { Document } from 'langchain/document'
-import { Chroma } from '@langchain/community/vectorstores/chroma'
 import { ConversationalRetrievalQAChain } from 'langchain/chains'
 import { DocumentType } from '@/types/constants'
 import path from 'path'
+import { Chroma } from '@langchain/community/vectorstores/chroma'
 
 const CHROMA_DB_HOST = process.env.CHROMA_DB_HOST
 
@@ -36,26 +36,40 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
         }
 
         // 3. Create the vectorstore
-        const vectorStore = await Chroma.fromDocuments(chunks, embbederOpenAI, {
-            collectionName: "test",
-            url: CHROMA_DB_HOST,
-        })
-        if (!vectorStore) {
+        const collection = await Chroma.fromDocuments(
+            chunks,
+            embbedings,
+            {
+                url: CHROMA_DB_HOST,
+                collectionName: 'archive',
+
+            }
+        )
+        if (!collection) {
             throw new Error("Failed to create vectorstore")
         }
 
-        // 4. Create the chain
+        // 4. Search for related documents
+        const embbededMessage = await embbedings.embedQuery(message)
+        const relevantDocs = await collection.similaritySearchVectorWithScore(embbededMessage, 3)
+
+        // 5. Create the chain
+        const retriever = collection.asRetriever(2)
         const chain = ConversationalRetrievalQAChain.fromLLM(
-            llmOpenAI,
-            vectorStore.asRetriever(),
+            llm,
+            retriever,
         )
         if (!chain) {
             throw new Error("Failed to create chain")
         }
 
-        // 5. Ask it a question
+        // 6. Get response from chain
         chain.returnSourceDocuments = true
-        const data = await chain.call({ question: message, chat_history: [] })
+        const data = await chain.invoke({
+            question: message,
+            input_documents: relevantDocs,
+            chat_history: [],
+        })
         if (!data) {
             throw new Error("Failed to get response from chain")
         }
@@ -82,7 +96,7 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
 async function loadDirectory(directoryPath: string) {
     try {
         const loader = new DirectoryLoader(directoryPath, {
-            '.pdf': (filePath:string) => new PDFLoader(filePath)
+            '.pdf': (filePath: string) => new PDFLoader(filePath)
         })
 
         return await loader.load()
@@ -94,8 +108,8 @@ async function loadDirectory(directoryPath: string) {
 
 async function splitDocuments(
     docs: Document<Record<string, any>>[],
-    chunkSize: number = 250,
-    chunkOverlap: number = 50
+    chunkSize: number = 500,
+    chunkOverlap: number = 100
 ) {
     try {
         const splitter = new RecursiveCharacterTextSplitter({
