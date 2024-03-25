@@ -1,4 +1,4 @@
-import { llmOpenAI, embbederOpenAI } from '@/utils/openai'
+import { llm, embbedings } from '@/utils/openai'
 import { DirectoryLoader } from 'langchain/document_loaders/fs/directory'
 import { PDFLoader } from 'langchain/document_loaders/fs/pdf'
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
@@ -6,8 +6,7 @@ import { Document } from 'langchain/document'
 import { ConversationalRetrievalQAChain } from 'langchain/chains'
 import { DocumentType } from '@/types/constants'
 import path from 'path'
-
-import { MemoryVectorStore } from 'langchain/vectorstores/memory'
+import { Chroma } from '@langchain/community/vectorstores/chroma'
 
 const CHROMA_DB_HOST = process.env.CHROMA_DB_HOST
 
@@ -37,15 +36,52 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
         }
 
         // 3. Create the vectorstore
-        const vectorStore = await MemoryVectorStore.fromDocuments(chunks, embbederOpenAI, {})
-        if (!vectorStore) {
+        const collection = await Chroma.fromDocuments(
+            chunks,
+            embbedings,
+            {
+                url: CHROMA_DB_HOST,
+                collectionName: 'archive',
+
+            }
+        )
+        if (!collection) {
             throw new Error("Failed to create vectorstore")
         }
 
+        // 4. Search for related documents
+        const embbededMessage = await embbedings.embedQuery(message)
+        const relevantDocs = await collection.similaritySearchVectorWithScore(embbededMessage, 2)
+
+        console.log(relevantDocs)
+
+        // 5. Prompt the model
+        const retriever = collection.asRetriever(2)
+
+        const chain = ConversationalRetrievalQAChain.fromLLM(
+            llm,
+            retriever,
+        )
+
+        if (!chain) {
+            throw new Error("Failed to create chain")
+        }
+
+        chain.returnSourceDocuments = true
+
+        const data = await chain.invoke({
+            question: message,
+            input_documents: relevantDocs,
+            chat_history: [],
+        })
+
+        console.log(data.sourceDocuments[0])
+
         // 4. Create the chain
+        /*
         const retriever = vectorStore.asRetriever(2)
         const chain = ConversationalRetrievalQAChain.fromLLM(
-            llmOpenAI,
+            llm,
             retriever,
         )
         if (!chain) {
@@ -60,6 +96,7 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
         }
 
         console.log(data)
+        */
         
         const res = {
             text: data.text,
@@ -83,7 +120,7 @@ export async function sendPrompt(message: string): Promise<PromptResponse> {
 async function loadDirectory(directoryPath: string) {
     try {
         const loader = new DirectoryLoader(directoryPath, {
-            '.pdf': (filePath:string) => new PDFLoader(filePath)
+            '.pdf': (filePath: string) => new PDFLoader(filePath)
         })
 
         return await loader.load()
