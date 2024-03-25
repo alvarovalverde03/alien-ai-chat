@@ -16,9 +16,9 @@ export default function MessageList({ messages }: Props) {
     }, [messages])
 
     return (
-        <div className="flex-1 flex flex-col gap-6 min-h-full min-w-full mt-4 mb-1 pr-2 lg:px-2 overflow-y-auto scroll-smooth">
+        <div className="flex-1 flex flex-col gap-6 min-h-full min-w-full max-w-full mt-4 mb-1 pr-2 lg:px-2 overflow-y-auto overflow-x-hidden scroll-smooth">
             {messages && messages.map((m, index) => (
-                <Message author={m.author} text={m.text} key={index} />                
+                <Message author={m.author} text={m.text} documents={m.documents} key={index} />                
             ))}
 
             {messages.length === 0 && (

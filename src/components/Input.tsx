@@ -73,7 +73,8 @@ export default function SendInput({ messages, updateMessages }: Props ) {
       ...prevMessages,
       {
         text: data.text,
-        author: Authors.LANG_CHAIN
+        author: Authors.LANG_CHAIN,
+        documents: data.documents
       }
     ])
   }

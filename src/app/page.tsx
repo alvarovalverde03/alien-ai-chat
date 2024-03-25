@@ -12,6 +12,7 @@ export default function Home() {
 
   const updateMessages = (update: TMessage[] | ((prevMessages: TMessage[]) => TMessage[])) => {
     setMessages(update);
+    console.log(messages);
   };
 
   return (
