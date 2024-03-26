@@ -16,7 +16,7 @@ export default function Message({ author, text, documents }: Props) {
         <article>
             <div className="flex items-start max-w-full">
                 <div className="flex-shrink-0">
-                    <img className="h8 w-8 rounded-full"
+                    <img className="h-7 w-7 rounded-full"
                         src={author == Authors.USER ? '/profile-images/question.webp' : '/profile-images/alien.webp'}
                         alt="Avatar"
                     />

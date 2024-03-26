@@ -17,13 +17,13 @@ export default function Home() {
 
   return (
     <>
-     <div className='w-full grid grid-cols-6 gap-4 text-sm mb-3'>
+     <div className='w-full grid grid-cols-6 items-center gap-4 text-sm mb-3'>
         <div className='col-span-0 lg:col-span-1 hidden lg:block'></div>
 
         
-        <div className='col-span-5 lg:col-span-4 w-full flex flex-col items-center justify-center text-sm'>
-          <h1 className='text-xl lg:text-2xl font-semibold text-center'>
-            🦜🔗 NextJS + LangChain Chat
+        <div className='col-span-5 lg:col-span-4 w-full flex flex-col lg:items-center pl-2 lg:pl-0 justify-center text-sm'>
+          <h1 className='text-xl lg:text-2xl font-semibold text-start lg:text-center'>
+            AlienAI Chat
           </h1>
         </div>
 

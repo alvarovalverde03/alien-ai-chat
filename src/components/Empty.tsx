@@ -62,14 +62,14 @@ export default function Empty({ updateMessages, isSending, setIsSending }: Props
             ...prevMessages,
             {
                 text: data.text,
-                author: Authors.LANG_CHAIN,
+                author: Authors.ALIEN_AI,
                 documents: data.documents
             }
         ])
     }
 
     return (
-        <div className='text-center flex-auto flex flex-col justify-between items-center pl-2'>
+        <div className='text-center flex-auto flex flex-col justify-between items-center pl-2 lg:pl-0'>
             <div />
 
             <div className='flex flex-col items-center justify-center gap-4'>
@@ -81,6 +81,7 @@ export default function Empty({ updateMessages, isSending, setIsSending }: Props
                 {messages.map((m, index) => (
                     <button
                         onClick={() => handleOnClick(m.prompt)}
+                        key={index}
                         className="group transition inline-flex items-center justify-between gap-3 py-3 px-4 text-sm rounded-lg w-full max-h-16 h-16 overflow-hidden toggle-full-view focus:z-10 focus:ring-2 focus:ring-gray-500 bg-none focus:outline-none text-gray-400 border border-gray-600 hover:border-gray-400 hover:text-gray-300 hover:bg-black"
                     >
                         <div className="line-clamp-2 text-pretty text-start">

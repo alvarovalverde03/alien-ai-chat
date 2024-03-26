@@ -6,6 +6,6 @@ export enum DocumentType {
 }
 
 export enum Authors {
-    LANG_CHAIN = 'LangChain',
+    ALIEN_AI = 'AlienAI',
     USER = 'You'
 }
