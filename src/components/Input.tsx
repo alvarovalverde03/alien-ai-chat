@@ -12,15 +12,15 @@ export type FormData = {
 }
 
 interface Props {
-  messages: TMessage[];
   updateMessages: (messages: TMessage[] | ((prevMessages: TMessage[]) => TMessage[])) => void;
+  isSending: boolean;
+  setIsSending: (isSending: boolean) => void;
 }
 
-export default function SendInput({ messages, updateMessages }: Props ) {
+export default function SendInput({ updateMessages, isSending, setIsSending }: Props ) {
   const [form, setForm] = useState<FormData>({
     text: ''
   })
-  const [isSending, setIsSending] = useState(false)
 
   function handleInputOnChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value }  = event.target

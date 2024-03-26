@@ -1,7 +1,7 @@
 'use client'
 
 import Input from '@/components/Input';
-import ResponseList from '@/components/MessageList';
+import MessageList from '@/components/MessageList';
 import type { TMessage } from '@/types/Message';
 import { useState } from 'react';
 import { LinkButton } from '@/components/Button';
@@ -9,11 +9,11 @@ import ArchiveIcon from '@/icons/ArchiveIcon';
 
 export default function Home() {
   const [messages, setMessages] = useState<TMessage[]>([])
+  const [isSending, setIsSending] = useState(false)
 
   const updateMessages = (update: TMessage[] | ((prevMessages: TMessage[]) => TMessage[])) => {
     setMessages(update);
-    console.log(messages);
-  };
+  }
 
   return (
     <>
@@ -37,9 +37,9 @@ export default function Home() {
         </div>
       </div>
 
-      <ResponseList messages={messages} />
+      <MessageList messages={messages} updateMessages={updateMessages} isSending={isSending} setIsSending={setIsSending} />
 
-      <Input messages={messages} updateMessages={updateMessages} />
+      <Input updateMessages={updateMessages} isSending={isSending} setIsSending={setIsSending} />
     </>
   )
 }

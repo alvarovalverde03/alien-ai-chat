@@ -3,12 +3,17 @@
 import Message from '@/components/Message';
 import type { TMessage } from '@/types/Message';
 import { useEffect, useRef } from 'react'
+import Empty from './Empty';
+import SpinnerIcon from '@/icons/SpinnerIcon';
 
 interface Props {
     messages: TMessage[];
+    updateMessages: (messages: TMessage[] | ((prevMessages: TMessage[]) => TMessage[])) => void;
+    isSending: boolean;
+    setIsSending: (isSending: boolean) => void;
 }
 
-export default function MessageList({ messages }: Props) {
+export default function MessageList({ messages, updateMessages, isSending, setIsSending }: Props) {
     const bottomRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
@@ -22,8 +27,12 @@ export default function MessageList({ messages }: Props) {
             ))}
 
             {messages.length === 0 && (
-                <div className="text-center flex-auto flex justify-center items-center text-sm text-zinc-300">
-                    <p>No messages yet</p>
+                <Empty updateMessages={updateMessages} isSending={isSending} setIsSending={setIsSending} />
+            )}
+
+            {isSending && (
+                <div className="flex items-center justify-center">
+                    <SpinnerIcon />
                 </div>
             )}
 
