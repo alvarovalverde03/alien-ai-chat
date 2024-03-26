@@ -6,6 +6,19 @@ import { Toaster } from 'sonner'
 export const metadata: Metadata = {
   title: 'AlienAI Chat − alvarovalverde.dev',
   description: 'AlienAI Chat is a chatbot that generates responses about AlienAI (a ficticious company), based on user inputs. Developed with NextJS and LangChain.',
+  authors: [{ name: 'Álvaro', url: 'https://alvarovalverde.dev' }],
+  metadataBase: new URL('https://ai.alvarovalverde.dev'),
+  openGraph: {
+    title: 'AlienAI Chat − alvarovalverde.dev',
+    description: 'AlienAI Chat is a chatbot that generates responses about AlienAI (a ficticious company), based on user inputs. Developed with NextJS and LangChain.',
+    images: ['/alien-ai-og.png'],
+  },
+  twitter: {
+    title: 'AlienAI Chat − alvarovalverde.dev',
+    description: 'AlienAI Chat is a chatbot that generates responses about AlienAI (a ficticious company), based on user inputs. Developed with NextJS and LangChain.',
+    card: 'summary_large_image',
+    images: ['/alien-ai-og.png'],
+  }
 }
 
 export default function RootLayout({
