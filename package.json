@@ -13,6 +13,7 @@
     "@langchain/community": "0.0.42",
     "@langchain/core": "0.1.49",
     "@langchain/openai": "0.0.21",
+    "@vercel/analytics": "^1.2.2",
     "@xenova/transformers": "2.16.1",
     "chromadb": "1.8.1",
     "chromadb-default-embed": "^2.13.2",

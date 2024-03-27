@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Analytics } from '@vercel/analytics/react'
 import './globals.css'
 import BackgroundBlur from '@/components/BackgroundBlur'
 import { Toaster } from 'sonner'
@@ -30,7 +31,8 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <main className='relative flex min-h-dvh max-h-dvh max-w-[860px] w-full mx-auto overflow-hidden flex-col items-center justify-between px-4 pb-q pb-2 lg:pb-3 pt-6 lg:pt-8'>
-          <Toaster 
+          <Analytics />
+          <Toaster
             theme='dark'
             position='top-center'
             offset={100}
