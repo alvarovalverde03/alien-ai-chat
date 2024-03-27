@@ -6,6 +6,7 @@ import type { TMessage } from '@/types/Message';
 import { useState } from 'react';
 import { LinkButton } from '@/components/Button';
 import ArchiveIcon from '@/icons/ArchiveIcon';
+import GitHubIcon from '@/icons/GitHubIcon';
 
 export default function Home() {
   const [messages, setMessages] = useState<TMessage[]>([])
@@ -17,22 +18,28 @@ export default function Home() {
 
   return (
     <>
-     <div className='w-full grid grid-cols-6 items-center gap-4 text-sm mb-3'>
-        <div className='col-span-0 lg:col-span-1 hidden lg:block'></div>
+     <div className='w-full grid grid-cols-8 items-center gap-4 text-sm mb-3'>
+        <div className='col-span-0 lg:col-span-3 hidden lg:block'></div>
 
         
-        <div className='col-span-5 lg:col-span-4 w-full flex flex-col lg:items-center pl-2 lg:pl-0 justify-center text-sm'>
+        <div className='col-span-3 lg:col-span-2 w-full flex flex-col lg:items-center pl-2 lg:pl-0 justify-center text-sm'>
           <h1 className='text-xl lg:text-2xl font-semibold text-start lg:text-center'>
             AlienAI Chat
           </h1>
         </div>
 
-        <div className="col-span-1 justify-self-end">
+        <div className="col-span-5 lg:col-span-3 justify-self-end flex gap-2 flex-wrap">
+            <LinkButton
+                href="https://github.com/alvarovalverde03/alien-ai-chat"
+                icon={<GitHubIcon />}
+                text="View on GitHub"
+                responsiveText
+                target_blank
+            />
             <LinkButton
                 href="/archive"
                 icon={<ArchiveIcon />}
                 text="Go to archive"
-                responsiveText={true}
             />
         </div>
       </div>
