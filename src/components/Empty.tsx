@@ -74,7 +74,7 @@ export default function Empty({ updateMessages, isSending, setIsSending }: Props
 
             <div className='flex flex-col items-center justify-center gap-4'>
                 <img src="/alien.webp" alt="AlienAI Logo" className="w-12 h-12 opacity-70" />
-                <p className="text-xl font-medium text-zinc-300">Ask me something abou AlienAI</p>
+                <p className="text-xl font-medium text-zinc-300">Ask me something about AlienAI</p>
             </div>
 
             <div className='w-full grid grid-cols-1 lg:grid-cols-2 gap-2'>
