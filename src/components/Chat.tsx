@@ -6,7 +6,7 @@ import type { TMessage } from '@/types/Message'
 import { useState } from 'react'
 import { LinkButton } from '@/components/Button'
 import ArchiveIcon from '@/icons/ArchiveIcon'
-import GitHubIcon from '@/icons/GitHubIcon'
+import ProfileIcon from '@/icons/ProfileIcon'
 
 export default function Chat() {  
     const [messages, setMessages] = useState<TMessage[]>([])
@@ -30,11 +30,10 @@ export default function Chat() {
     
             <div className="col-span-5 lg:col-span-3 justify-self-end flex gap-2 flex-wrap">
                 <LinkButton
-                    href="https://github.com/alvarovalverde03/alien-ai-chat"
-                    icon={<GitHubIcon />}
-                    text="View on GitHub"
+                    href="/profile"
+                    icon={<ProfileIcon />}
+                    text="Profile"
                     responsiveText
-                    target_blank
                 />
                 <LinkButton
                     href="/archive"
