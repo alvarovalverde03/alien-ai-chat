@@ -24,5 +24,8 @@ export const options: NextAuthOptions = {
             clientId: GOOGLE_ID,
             clientSecret: GOOGLE_SECRET
         })
-    ]
+    ],
+    pages: {
+        signIn: '/auth/signin',
+    }
 }
