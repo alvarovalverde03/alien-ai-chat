@@ -32,17 +32,16 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
-          <Analytics />
-          <Toaster
-            theme='dark'
-            position='top-center'
-            offset={100}
-            visibleToasts={1}
-            richColors={true}
-          />
-          <BackgroundBlur />
           <main className='relative flex min-h-dvh max-h-dvh max-w-[860px] w-full mx-auto overflow-hidden flex-col items-center justify-between px-4 pb-q pb-2 lg:pb-3 pt-6 lg:pt-8'>
-
+            <Analytics />
+            <Toaster
+              theme='dark'
+              position='top-center'
+              offset={100}
+              visibleToasts={1}
+              richColors={true}
+            />
+            <BackgroundBlur />
             {children}
           </main>
         </Providers>

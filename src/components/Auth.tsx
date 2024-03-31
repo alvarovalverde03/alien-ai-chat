@@ -1,3 +1,6 @@
+'use client'
+
+import { GoogleIcon } from '@/icons/AuthIcons'
 import { signIn } from 'next-auth/react'
 
 export default function Auth() {
@@ -13,12 +16,12 @@ export default function Auth() {
                 </span>
             </div>
             <button 
-                className='flex items-center justify-center h-9 px-8 py-5 gap-1 text-xs font-medium border rounded-lg toggle-full-view focus:z-10 focus:ring-2 focus:ring-gray-500 bg-gray-950 focus:outline-none text-gray-300 border-gray-600 hover:text-white hover:bg-neutral-900'
-                onClick={() => signIn()}
+                className='flex items-center justify-center gap-4 px-6 py-2 text-base font-medium border rounded-lg toggle-full-view focus:z-10 focus:ring-2 focus:ring-gray-500 bg-gray-950 focus:outline-none text-gray-300 border-gray-600 hover:text-white hover:bg-neutral-900'
+                onClick={() => signIn('google', { callbackUrl: '/' })}
             >
-                <span 
-                    className='text-base block text-nowrap uppercase'>
-                    Sign in
+                <GoogleIcon />
+                <span className='block text-nowrap'>
+                    Sign in with Google
                 </span>
             </button>
         </div>
