@@ -6,6 +6,7 @@ import { Authors } from '@/types/constants';
 import { useState } from 'react';
 import SpinnerIcon from '@/icons/SpinnerIcon';
 import { toast } from 'sonner';
+import Link from 'next/link';
 
 export type FormData = {
   text: string;
@@ -100,8 +101,35 @@ export default function SendInput({ updateMessages, isSending, setIsSending }: P
         </button>
       </form>
       <div className="w-full pt-[0.1rem] flex items-center justify-center text-xs text-zinc-500 text-center">
-        All content about AlienAI is based on fictitious information.
+        Developed by
+        <Link
+          href="https://alvarovalverde.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ml-1 underline underline-offset-2 text-zinc-500 hover:text-zinc-400"
+        >
+          Álvaro Valverde
+        </Link>
+        . View source code on
+        <Link
+          href="https://github.com/alvarovalverde03/alien-ai-chat"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ml-1 underline underline-offset-2 text-zinc-500 hover:text-zinc-400"
+        >
+          GitHub
+        </Link>.
       </div>
     </div>
   )
 }
+
+/*
+<LinkButton
+                    href="https://github.com/alvarovalverde03/alien-ai-chat"
+                    icon={<GitHubIcon />}
+                    text="View on GitHub"
+                    responsiveText
+                    target_blank
+                />
+*/

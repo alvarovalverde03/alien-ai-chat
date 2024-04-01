@@ -10,6 +10,7 @@
     "db:push": "drizzle-kit push:pg"
   },
   "dependencies": {
+    "@auth/drizzle-adapter": "0.8.2",
     "@google/generative-ai": "0.1.3",
     "@langchain/community": "0.0.42",
     "@langchain/core": "0.1.49",

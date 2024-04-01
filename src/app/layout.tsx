@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/react'
 import './globals.css'
 import BackgroundBlur from '@/components/BackgroundBlur'
 import { Toaster } from 'sonner'
+import { Providers } from './Providers'
 
 export const metadata: Metadata = {
   title: 'AlienAI Chat − alvarovalverde.dev',
@@ -30,18 +31,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main className='relative flex min-h-dvh max-h-dvh max-w-[860px] w-full mx-auto overflow-hidden flex-col items-center justify-between px-4 pb-q pb-2 lg:pb-3 pt-6 lg:pt-8'>
-          <Analytics />
-          <Toaster
-            theme='dark'
-            position='top-center'
-            offset={100}
-            visibleToasts={1}
-            richColors={true}
-          />
-          <BackgroundBlur />
-          {children}
-        </main>
+        <Providers>
+          <main className='relative flex min-h-dvh max-h-dvh max-w-[860px] w-full mx-auto overflow-hidden flex-col items-center justify-between px-4 pb-q pb-2 lg:pb-3 pt-6 lg:pt-8'>
+            <Analytics />
+            <Toaster
+              theme='dark'
+              position='top-center'
+              offset={100}
+              visibleToasts={1}
+              richColors={true}
+            />
+            <BackgroundBlur />
+            {children}
+          </main>
+        </Providers>
       </body>
     </html>
   )
