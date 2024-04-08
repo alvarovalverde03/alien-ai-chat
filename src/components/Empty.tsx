@@ -74,7 +74,7 @@ export default function Empty({ updateMessages, isSending, setIsSending }: Props
 
             <div className='flex flex-col items-center justify-center gap-4'>
                 <img src="/alien.webp" alt="AlienAI Logo" className="w-12 h-12 opacity-70" />
-                <p className="text-xl font-medium text-zinc-300">Ask me something about AlienAI</p>
+                <p className="text-xl font-medium text-zinc-600 dark:text-zinc-300">Ask me something about AlienAI</p>
             </div>
 
             <div className='w-full grid grid-cols-1 lg:grid-cols-2 gap-2'>
@@ -82,7 +82,7 @@ export default function Empty({ updateMessages, isSending, setIsSending }: Props
                     <button
                         onClick={() => handleOnClick(m.prompt)}
                         key={index}
-                        className="group transition inline-flex items-center justify-between gap-3 py-3 px-4 text-sm rounded-lg w-full max-h-16 h-16 overflow-hidden toggle-full-view focus:z-10 focus:ring-2 focus:ring-gray-500 bg-none focus:outline-none text-gray-400 border border-gray-600 hover:border-gray-400 hover:text-gray-300 hover:bg-black"
+                        className="group transition inline-flex items-center justify-between gap-3 py-3 px-4 text-sm w-full max-h-16 h-16 overflow-hidden toggle-full-view bg-none hover:bg-neutral-200 dark:hover:bg-neutral-900 text-gray-700 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-300 border rounded-lg border-gray-400 dark:border-gray-600 focus:z-10 focus:ring-1 focus:ring-gray-500 focus:outline-none"
                     >
                         <div className="line-clamp-2 text-pretty text-start">
                             {m.text}

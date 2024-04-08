@@ -25,11 +25,11 @@ export default function Message({ author, text, documents }: Props) {
                     <div className="text-sm font-medium text-zinc-500 mb-1">
                         {author}
                     </div>
-                    <div className="text-sm text-zinc-300">
+                    <div className="text-sm text-zinc-800 dark:text-zinc-300">
                         {uniqueDocs && (
                             <div className="mb-3 mt-2 grid gap-1 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                                 {uniqueDocs.map((doc, index) => (
-                                    <a key={index} href={doc.url} target="_blank" rel="noreferrer" className="inline-flex items-center justify-start gap-3 p-3 text-sm rounded-lg w-full max-h-16 h-16 overflow-hidden toggle-full-view focus:z-10 focus:ring-2 focus:ring-gray-500 bg-none focus:outline-none text-gray-400 border border-gray-600 hover:text-gray-300 hover:bg-black">
+                                    <a key={index} href={doc.url} target="_blank" rel="noreferrer" className="inline-flex items-center justify-start gap-3 p-3 text-sm rounded-lg w-full max-h-16 h-16 overflow-hidden toggle-full-view focus:z-10 focus:ring-2 focus:ring-gray-500 bg-none focus:outline-none text-gray-700 dark:text-gray-400 border border-gray-600 dark:border-gray-600 hover:text-gray-900 dark:hover:text-gray-300 hover:bg-zinc-200 dark:hover:bg-black">
                                         <div className="opacity-70 flex items-center justify-center">
                                             <PDFIcon />
                                         </div>
