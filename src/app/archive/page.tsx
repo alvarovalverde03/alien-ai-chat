@@ -19,7 +19,7 @@ export default function ArchivePage() {
                     <h1 className='mb-2 text-2xl font-semibold text-center'>
                         Archive
                     </h1>
-                    <p className='text-center text-zinc-400 text-pretty'>
+                    <p className='text-center text-zinc-700 dark:text-zinc-400 text-pretty'>
                         Here are the documents that have been used to retrieve data about AlienAI
                     </p>
                 </div>

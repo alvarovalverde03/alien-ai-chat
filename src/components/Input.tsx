@@ -85,8 +85,7 @@ export default function SendInput({ updateMessages, isSending, setIsSending }: P
         <input type="text" id="text" name='text'
           onChange={handleInputOnChange}
           value={form.text}
-          className="pr-14 text-base placeholder-gray-800 dark:placeholder-gray-400 text-black dark:text-white flex h-10 w-full rounded-md border border-black dark:border-white border-input bg-gray-100 dark:bg-black px-3 py-2 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-[1px] focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed"
-
+          className="pr-14 text-base placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-gray-100 flex h-10 w-full rounded-md border border-black dark:border-white border-input bg-gray-100 dark:bg-black px-3 py-2 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-[1px] focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed focus-visible:ring-black dark:focus-visible:ring-white"
           placeholder="Write a message..." autoComplete="off"
         />
 

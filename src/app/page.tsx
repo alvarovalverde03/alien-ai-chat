@@ -23,7 +23,7 @@ export default function Home() {
 
         
         <div className='col-span-3 lg:col-span-2 w-full flex flex-col lg:items-center pl-2 lg:pl-0 justify-center text-sm'>
-          <h1 className='text-xl lg:text-2xl font-semibold text-start lg:text-center'>
+          <h1 className='text-xl lg:text-2xl font-semibold text-start lg:text-center text-zinc-800 dark:text-zinc-200'>
             AlienAI Chat
           </h1>
         </div>

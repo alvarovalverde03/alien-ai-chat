@@ -12,8 +12,7 @@ interface LinkButtonProps {
 export function LinkButton({ href, icon, text, responsiveText, className, target_blank }: LinkButtonProps) {
     return (
         <Link
-            data-tooltip-target="button-disabled-example-full-screen-tooltip"
-            className={`${className} ${responsiveText ? 'w-9 lg:w-fit' : 'w-fit'} flex items-center justify-center h-9 px-2 gap-1 text-xs font-medium border rounded-lg toggle-full-view focus:z-10 focus:ring-2 focus:ring-gray-500 bg-gray-950 focus:outline-none text-gray-400 border-gray-600 hover:text-white hover:bg-neutral-900`}
+            className={`${className} ${responsiveText ? 'w-9 lg:w-fit' : 'w-fit'} flex items-center justify-center gap-1 h-9 px-2 text-xs font-medium toggle-full-view bg-gray-300 dark:bg-gray-950 hover:bg-neutral-200 dark:hover:bg-neutral-900 text-gray-700 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-300 border rounded-lg border-gray-400 dark:border-gray-600 focus:z-10 focus:ring-1 focus:ring-gray-400 dark:focus:ring-gray-500 focus:outline-none`}
             href={href}
             target={target_blank ? '_blank' : '_self'}
         >
