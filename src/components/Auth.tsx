@@ -16,7 +16,7 @@ export default function Auth() {
                 </span>
             </div>
             <button 
-                className='flex items-center justify-center gap-4 px-6 py-2 text-base font-medium border rounded-lg toggle-full-view focus:z-10 focus:ring-2 focus:ring-gray-500 bg-gray-950 focus:outline-none text-gray-300 border-gray-600 hover:text-white hover:bg-neutral-900'
+                className='flex items-center justify-center gap-4 px-6 py-2 text-base font-medium border rounded-lg toggle-full-view focus:z-10 focus:ring-2 focus:ring-gray-500 bg-gray-200 dark:bg-gray-950 focus:outline-none text-gray-600 dark:text-gray-300 border-gray-400 dark:border-gray-600 hover:text-gray-800 dark:hover:text-white hover:bg-gray-300 dark:hover:bg-neutral-900'
                 onClick={() => signIn('google', { callbackUrl: '/' })}
             >
                 <GoogleIcon />
